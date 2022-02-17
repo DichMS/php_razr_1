@@ -1,51 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <title>Razr_1</title>
-</head>
-    <body>
-        <header>
-            <h1>Разработка В-П</h1>
-        </header>
-        <nav>
-            <ol>
-                <li><a href="#">Главная</a> </li>
-                <li><a href="#">Регистрация</a> </li>
-                <li><a href="#">Авторизация</a></li>
-            </ol>
-        </nav>
-        <main>
-            <div class="content">
-                <form action="#">
-                    <input type="text" name="login" placeholder="login" required>
-                    <input type="password" name="password" placeholder="password" required>
+<?php
+    require ("header.html");
+    require ("menu.html");
 
-                    <input type="submit" name="send" value="Регистрация">
-                    <input type="submit" name="to_index" value="На главную">
+    if (isset($_REQUEST['to_index']))
+    {
+        header('Location: /php_razr_1/login.php');
+    }
+    else if (isset($_REQUEST['login']) && isset($_REQUEST['password']))
+        if (isset($_REQUEST['send']))
+        {
+            $host="localhost";
+            $user="root";
+            $pass="";
+            $db="users";
+
+            $con = mysqli_connect($host, $user, $pass) or die("connection error");
+            mysqli_select_db($con, $db) or die("db error");
+
+            $s = "SELECT * FROM `user` WHERE `login`='".$_REQUEST['login']."'";
+            $res = mysqli_query($con, $s);
+
+            $user = mysqli_fetch_assoc($res);
+
+            if (empty($user))
+            {
+                $login = $_REQUEST['login'];
+                $pass = $_REQUEST['password'];
+                $s = "INSERT INTO `user`(`id`, `login`, `password`) VALUES (NULL, '$login','$pass')";
+                mysqli_query($con, $s);
+                header('Location: /php_razr_1/index.php');
+            }
+            else
+            {
+                print("Пользователь с таким логином уже существует!");
+            }
+        }
+?>
+
+<div tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-5 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h2 class="fw-bold mb-0">Регистрация</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form class="">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control rounded-4" id="floatingInput" name="login" placeholder="name@example.com">
+                        <label for="floatingInput">Адрес электронной почты</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-4" id="floatingPassword" name="password" placeholder="Пароль">
+                        <label for="floatingPassword">Пароль</label>
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Зарегистрироваться</button>
+                    <hr class="my-4">
+                    <small class="text-muted">Нажимая «Зарегистрироваться», вы соглашаетесь с условиями использования.</small>
                 </form>
             </div>
-        </main>
-        <footer>
-            <!--<p class = "name">
-                Головин Андрей
-            </p>
-            <p>
-                группа 2011
-            </p>
-            <p><a class = "VK_a" href="https://vk.com/dich_ms">VK</a></p>
-            <p class = "uni">
-                Университет Дубна
-            </p>
-            <p>
-                Осень, 2021
-            </p>-->
-        </footer>
-    </body>
-</html>
-
+        </div>
+    </div>
+</div>
 <?php
+    require ("footer.html");
+
+// сделать регистрацию и авторизацию + include (соединение файлов)
+// разборка с гитхабом гатова
+// доп. почитать про PDO, отличия от MySqli
+?>
