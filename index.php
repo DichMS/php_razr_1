@@ -2,7 +2,10 @@
     require ("header.html");
     require ("menu.html");
 
-    require ("login.php");
+    if (session_status())
+        header("Location: /php_razr_1/user_panel.php");
+    else
+        require ("login.php");
 
     require ("footer.html");
 ?>

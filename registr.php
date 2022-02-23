@@ -2,12 +2,10 @@
     require ("header.html");
     require ("menu.html");
 
-    if (isset($_REQUEST['to_index']))
-    {
-        header('Location: /php_razr_1/login.php');
-    }
-    else if (isset($_REQUEST['login']) && isset($_REQUEST['password']))
-        if (isset($_REQUEST['send']))
+    if (session_status())
+        header("Location: /php_razr_1/index.php");
+    if (isset($_REQUEST['send']))
+        if (isset($_REQUEST['login']) && isset($_REQUEST['password']))
         {
             $host="localhost";
             $user="root";
@@ -21,19 +19,25 @@
             $res = mysqli_query($con, $s);
 
             $user = mysqli_fetch_assoc($res);
-
+            echo $user;
             if (empty($user))
             {
                 $login = $_REQUEST['login'];
                 $pass = $_REQUEST['password'];
                 $s = "INSERT INTO `user`(`id`, `login`, `password`) VALUES (NULL, '$login','$pass')";
                 mysqli_query($con, $s);
-                header('Location: /php_razr_1/index.php');
+                print("Jojo top");
+                session_start();
+                header('Location: /php_razr_1/user_panel.php');
             }
             else
             {
                 print("Пользователь с таким логином уже существует!");
             }
+        }
+        else
+        {
+            print("Введите логин и пароль!");
         }
 ?>
 
@@ -48,14 +52,14 @@
             <div class="modal-body p-5 pt-0">
                 <form class="">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control rounded-4" id="floatingInput" name="login" placeholder="name@example.com">
-                        <label for="floatingInput">Адрес электронной почты</label>
+                        <input type="text" class="form-control rounded-4" id="floatingInput" name="login" placeholder="name@example.com">
+                        <label for="floatingInput"> Логин </label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control rounded-4" id="floatingPassword" name="password" placeholder="Пароль">
                         <label for="floatingPassword">Пароль</label>
                     </div>
-                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Зарегистрироваться</button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" name="send">Зарегистрироваться</button>
                     <hr class="my-4">
                     <small class="text-muted">Нажимая «Зарегистрироваться», вы соглашаетесь с условиями использования.</small>
                 </form>

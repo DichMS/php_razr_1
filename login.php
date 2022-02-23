@@ -5,7 +5,6 @@
  * create, read, update and delete
  * страница должна быть доступна только авторизованным пользователям
  */
-    session_start();
 
     if (isset($_REQUEST['send']))
     {
@@ -25,12 +24,13 @@
             $user = mysqli_fetch_assoc($res);
             if (empty($user))
             {
-                print("Неправильный логин или пароль");
+                print("Неверный логин или пароль");
             }
             else
             {
                 $_SESSION["login"] = $user["login"];
                 $_SESSION["password"] = $user["password"];
+                session_start();
 
                 header("Location: /php_razr_1/user_panel.php");
             }
@@ -53,14 +53,14 @@
             <div class="modal-body p-5 pt-0">
                 <form class="">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control rounded-4" id="floatingInput" name="login" placeholder="name@example.com">
-                        <label for="floatingInput">Адрес электронной почты</label>
+                        <input type="text" class="form-control rounded-4" id="floatingInput" name="login" placeholder="name@example.com">
+                        <label for="floatingInput"> Логин </label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control rounded-4" id="floatingPassword" name="password" placeholder="Пароль">
                         <label for="floatingPassword">Пароль</label>
                     </div>
-                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Авторизация</button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" name="send">Авторизация</button>
                 </form>
             </div>
         </div>
