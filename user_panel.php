@@ -1,12 +1,19 @@
-<table class="table table-bordered">
+<?php
+    require ("header.html");
+    require ("menu.html");
+?>
+
+<table class="table table-bordered" style="margin: 10px">
 <tr class="table-active">
     <td> Список дел </td>
     <td>  </td>
     <td>  </td>
 </tr>
 <?php
-    require ("header.html");
-    require ("menu.html");
+    session_start();
+
+
+    print("<h2>Добро пожаловать, ".$_SESSION["login"]."!</h2>");
 
     $host="localhost";
     $user="root";
@@ -18,30 +25,38 @@
 
     if (isset($_REQUEST['add_work']))
     {
-        $deloname = $_REQUEST['workname'];
-        $add = "INSERT INTO `dela`(`id`, `delo`) VALUES (NULL, '$deloname')";
-        mysqli_query($con, $add);
+        header("Location: /php_razr_1/add_work.php");
     }
+
+
     $s = "select * from dela";
 
     $result = mysqli_query($con, $s);
-    while ($row = mysqli_fetch_row($result)) {
+    while ($row = mysqli_fetch_row($result))
+    {
         print("<tr>");
         print("<td>" . $row[1] . "</td>");
         print("<td><a class='nav-link' href='update.php?id=".$row[0]."&work=".$row[1]."'>Редактировать</a>");
         print("<td><a class='nav-link' href='delete.php?id=".$row[0]."'>Удалить</a>");
         print("</tr>");
     }
-    if (isset($_REQUEST['exit']))
+
+    if (isset($_REQUEST['exit_from_panel']))
     {
+        session_destroy();
         session_abort();
         header("Location: /php_razr_1/index.php");
+        exit;
     }
+
 ?>
 </table>
 
 <form>
-    <input type="text" name="workname" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">
     <input type="submit" name="add_work" value="Добавить дело" style="margin: 10px">
-    <input type="submit" name="exit" value="Выйти" style="margin: 10px">
+    <input type="submit" name="exit_from_panel" value="Выйти" style="margin: 10px">
 </form>
+
+<?php
+    require("footer.html");
+?>

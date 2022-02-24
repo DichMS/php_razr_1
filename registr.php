@@ -2,7 +2,7 @@
     require ("header.html");
     require ("menu.html");
 
-    if (session_status())
+    if (session_status() == 0)
         header("Location: /php_razr_1/index.php");
     if (isset($_REQUEST['send']))
         if (isset($_REQUEST['login']) && isset($_REQUEST['password']))
@@ -28,7 +28,7 @@
                 mysqli_query($con, $s);
                 print("Jojo top");
                 session_start();
-                header('Location: /php_razr_1/user_panel.php');
+                header('Location: /php_razr_1/index.php');
             }
             else
             {

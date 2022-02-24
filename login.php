@@ -28,9 +28,9 @@
             }
             else
             {
+                session_start();
                 $_SESSION["login"] = $user["login"];
                 $_SESSION["password"] = $user["password"];
-                session_start();
 
                 header("Location: /php_razr_1/user_panel.php");
             }

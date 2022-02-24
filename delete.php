@@ -12,5 +12,5 @@
     $s = "DELETE FROM `dela` WHERE id = '$id' ";
 
     mysqli_query($con, $s);
-    header('Location: /php_bd_books/index.php');
+    header('Location: /php_razr_1/index.php');
 ?>

@@ -2,12 +2,10 @@
     require("header.html");
     require ("menu.html");
 ?>
-
-<form>
-    <input type="text" name="workname" value="<?php print($_REQUEST['work']); ?>" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">
-    <input type="submit" name="add_work" value="Изменить дело" style="margin: 10px">
-    <input type="hidden" value="<?php print($_REQUEST['id']); ?> >
-</form>
+    <form>
+        <input type="text" name="workname" class="form-control" value=" " aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">
+        <input type="submit" name="add_work" value="Добавить дело" style="margin: 10px">
+    </form>
 <?php
     if (isset($_REQUEST['workname']))
     {
@@ -21,10 +19,10 @@
 
         if (isset($_REQUEST['add_work']))
         {
-            $delo = $_REQUEST['workname'];
-            $s = "UPDATE `delo` SET `delo`='$delo'";
+            $deloname = $_REQUEST['workname'];
+            $add = "INSERT INTO `dela`(`id`, `delo`) VALUES (NULL, '$deloname')";
 
-            mysqli_query($con, $s);
+            mysqli_query($con, $add);
             header("Location: /php_razr_1/index.php");
         }
     }
@@ -32,8 +30,8 @@
     {
         print("Задайте имя делу!");
     }
-    ?>
+?>
 
     <?php
-    require("footer.html");
+require("footer.html");
 ?>
