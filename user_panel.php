@@ -18,7 +18,6 @@
 
     if (isset($_REQUEST['add_work']))
     {
-        print("ROT EBAL");
         $deloname = $_REQUEST['workname'];
         $add = "INSERT INTO `dela`(`id`, `delo`) VALUES (NULL, '$deloname')";
         mysqli_query($con, $add);
@@ -35,7 +34,7 @@
     }
     if (isset($_REQUEST['exit']))
     {
-        session_destroy();
+        session_abort();
         header("Location: /php_razr_1/index.php");
     }
 ?>
