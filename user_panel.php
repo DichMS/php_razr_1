@@ -16,7 +16,6 @@
     $con = mysqli_connect($host, $user, $pass) or die ("no connection");
     mysqli_select_db($con, $db) or die ("no db");
 
-    print("BLYAD");
     if (isset($_REQUEST['add_work']))
     {
         print("ROT EBAL");
@@ -34,7 +33,6 @@
         print("<td><a class='nav-link' href='delete.php?id=".$row[0]."'>Удалить</a>");
         print("</tr>");
     }
-    print("SUKA");
     if (isset($_REQUEST['exit']))
     {
         session_destroy();
