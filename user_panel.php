@@ -42,9 +42,9 @@
     }
 ?>
 </table>
-<?php
-    print('<input type="text" name="workname" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">');
-    print('<input type="submit" name="add_work" value="Добавить дело" style="margin: 10px">');
-    print('<input type="submit" name="exit" value="Выйти" style="margin: 10px">')
-?>
 
+<form>
+    <input type="text" name="workname" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">
+    <input type="submit" name="add_work" value="Добавить дело" style="margin: 10px">
+    <input type="submit" name="exit" value="Выйти" style="margin: 10px">
+</form>

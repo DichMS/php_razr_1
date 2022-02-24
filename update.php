@@ -1,8 +1,8 @@
-
-<input type="text" name="workname" value="<?php print($_REQUEST['work']); ?>" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">;
-<input type="submit" name="add_work" value="Изменить дело" style="margin: 10px">;
-<input type="hidden" value="<?php print($_REQUEST['id']); ?> >
-
+<form>
+    <input type="text" name="workname" value="<?php print($_REQUEST['work']); ?>" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">;
+    <input type="submit" name="add_work" value="Изменить дело" style="margin: 10px">;
+    <input type="hidden" value="<?php print($_REQUEST['id']); ?> >
+</form>
 <?php
     if (isset($_REQUEST['workname']))
     {
