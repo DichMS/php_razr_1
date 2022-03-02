@@ -7,19 +7,13 @@
     if (isset($_REQUEST['send']))
         if (isset($_REQUEST['login']) && isset($_REQUEST['password']))
         {
-            $host="localhost";
-            $user="root";
-            $pass="";
-            $db="users";
-
-            $con = mysqli_connect($host, $user, $pass) or die("connection error");
-            mysqli_select_db($con, $db) or die("db error");
+            require_once 'db_connect.php';
 
             $s = "SELECT * FROM `user` WHERE `login`='".$_REQUEST['login']."'";
             $res = mysqli_query($con, $s);
 
             $user = mysqli_fetch_assoc($res);
-            echo $user;
+
             if (empty($user))
             {
                 $login = $_REQUEST['login'];

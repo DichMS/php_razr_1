@@ -1,31 +1,27 @@
 <?php
     require("header.html");
     require ("menu.html");
+
+    session_start();
 ?>
 
 <form>
     <input type="text" name="workname" value="<?php print($_REQUEST['work']); ?>" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">
     <input type="submit" name="add_work" value="Изменить дело" style="margin: 10px">
-    <input type="hidden" value="<?php print($_REQUEST['id']); ?> >
+    <input type="hidden" name="id_num" value="<?php print($_REQUEST['id']); ?> >
 </form>
 <?php
     if (isset($_REQUEST['workname']))
     {
-        $host="localhost";
-        $user="root";
-        $pass="";
-        $db="users";
-
-        $con = mysqli_connect($host, $user, $pass) or die("connection error");
-        mysqli_select_db($con, $db) or die("db error");
+        require_once 'db_connect.php';
 
         if (isset($_REQUEST['add_work']))
         {
             $delo = $_REQUEST['workname'];
-            $s = "UPDATE `delo` SET `delo`='$delo'";
+            $s = "UPDATE `dela` SET `delo`='$delo' where id=".$_REQUEST['id_num'];
 
             mysqli_query($con, $s);
-            header("Location: /php_razr_1/index.php");
+            header("Location: /php_razr_1/user_panel.php");
         }
     }
     else

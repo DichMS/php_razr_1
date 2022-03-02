@@ -1,6 +1,7 @@
 <?php
     require("header.html");
     require ("menu.html");
+
 ?>
     <form>
         <input type="text" name="workname" class="form-control" value=" " aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="margin: 10px">
@@ -9,13 +10,7 @@
 <?php
     if (isset($_REQUEST['workname']))
     {
-        $host="localhost";
-        $user="root";
-        $pass="";
-        $db="users";
-
-        $con = mysqli_connect($host, $user, $pass) or die("connection error");
-        mysqli_select_db($con, $db) or die("db error");
+        require_once 'db_connect.php';
 
         if (isset($_REQUEST['add_work']))
         {
@@ -23,7 +18,7 @@
             $add = "INSERT INTO `dela`(`id`, `delo`) VALUES (NULL, '$deloname')";
 
             mysqli_query($con, $add);
-            header("Location: /php_razr_1/index.php");
+            header("Location: /php_razr_1/user_panel.php");
         }
     }
     else

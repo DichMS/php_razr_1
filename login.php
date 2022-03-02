@@ -10,13 +10,7 @@
     {
         if ($_REQUEST['login'] != "" && $_REQUEST['password'] != "")
         {
-            $host = "localhost";
-            $user = "root";
-            $pass = "";
-            $db = "users";
-
-            $con = mysqli_connect($host, $user, $pass) or die("connection error");
-            mysqli_select_db($con, $db) or die("db error");
+            require_once 'db_connect.php';
 
             $s = "SELECT * FROM `user` WHERE `login`='".$_REQUEST['login']."'and `password`='".$_REQUEST['password']."'";
             $res = mysqli_query($con, $s);

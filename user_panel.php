@@ -15,13 +15,8 @@
 
     print("<h2>Добро пожаловать, ".$_SESSION["login"]."!</h2>");
 
-    $host="localhost";
-    $user="root";
-    $pass="";
-    $db="users";
+    require_once 'db_connect.php';
 
-    $con = mysqli_connect($host, $user, $pass) or die ("no connection");
-    mysqli_select_db($con, $db) or die ("no db");
 
     if (isset($_REQUEST['add_work']))
     {
